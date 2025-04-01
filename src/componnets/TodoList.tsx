@@ -10,6 +10,7 @@ function TodoList () {
     const [showList, setShowList] = useState<boolean>(false)
 
 
+
     const handleSubmitTask = (e: React.FormEvent) => {
         e.preventDefault()
         if (input.trim() !== ''){
@@ -37,13 +38,14 @@ function TodoList () {
         }
     )
 
-    // const countAllTasks:number= todos.length
-    // const completedTasksCount: number = todos.filter((todo) => todo.completed ).length
-    // const unCompletedTaksCount: number = todos.filter(todo => !todo.completed).length
-
+    const handleCompleteAll = () => {
+      setTodos(todos.map (todo=> ({...todo, completed: true}) ))
+    }
 
     return (
       <>
+      
+      
         <div>
           <input
             type="text"
@@ -53,16 +55,6 @@ function TodoList () {
           />
           <button onClick={handleSubmitTask}>Add</button>
         </div>
-        {/* <div>
-          {todos.map((todo) => (
-            <TaskForm
-              key={todo.id}
-              task={todo}
-              onDelete={handleRemoveTask}
-              onToggle={handleToggle}
-            />
-          ))}
-        </div> */}
         <div>
           <Button buttonName="All" onChoose={() => {setFilter("all"); setShowList(true)}} />
           <Button
@@ -83,8 +75,10 @@ function TodoList () {
             onToggle={handleToggle}
           />
           ))}
+          <p>{filteredTodos.length} Tasks</p>
+          <button onClick={handleCompleteAll}>Complete all</button>
         </div>)}
-        
+  
       </>
     );
 }
